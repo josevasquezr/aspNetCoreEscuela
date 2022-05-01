@@ -1,18 +1,27 @@
 using aspNetCoreEscuela.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace aspNetCoreEscuela.Controllers
 {
     public class EscuelaController : Controller
     {
+        private EscuelaContext _context { get; set; }
         public IActionResult Index(){
             Escuela escuela = new Escuela();
 
-            escuela.UniqueId = Guid.NewGuid().ToString();
-            escuela.Nombre = "Platzi Academy";
-            escuela.AnioDeCreacion = 2005;
+            // escuela.UniqueId = Guid.NewGuid().ToString();
+            // escuela.Nombre = "Platzi Academy";
+            // escuela.AnioDeCreacion = 2005;
+
+            escuela = _context.Escuelas.FirstOrDefault<Escuela>();
 
             return View(escuela);
+        }
+
+        public EscuelaController(EscuelaContext context)
+        {
+            this._context = context;
         }
     }
 }

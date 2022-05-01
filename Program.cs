@@ -1,7 +1,13 @@
+using aspNetCoreEscuela.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<EscuelaContext>(
+    options => options.UseInMemoryDatabase(databaseName:"testDB")
+);
 
 var app = builder.Build();
 
