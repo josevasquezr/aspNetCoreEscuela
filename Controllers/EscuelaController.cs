@@ -10,10 +10,6 @@ namespace aspNetCoreEscuela.Controllers
         public IActionResult Index(){
             Escuela escuela = new Escuela();
 
-            // escuela.UniqueId = Guid.NewGuid().ToString();
-            // escuela.Nombre = "Platzi Academy";
-            // escuela.AnioDeCreacion = 2005;
-
             escuela = _context.Escuelas.FirstOrDefault<Escuela>();
 
             return View(escuela);

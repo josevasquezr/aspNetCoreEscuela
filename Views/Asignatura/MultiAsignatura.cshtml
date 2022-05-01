@@ -1,4 +1,4 @@
-﻿@Model List<Asignatura>
+﻿@Model IEnumerable<Asignatura>
 
 @{
     ViewData["Title"] = "Información Asignatura ForEach";
@@ -7,7 +7,7 @@
 @foreach (var asig in @Model)
 {
     <div class="text-center">
-        <h1 class="">Asignatura: @asig.UniqueId</h1>
+        <h1 class="">Asignatura: @asig.Id</h1>
         <h2 class="">Nombre: @asig.Nombre</h2>
     </div>    
 }

@@ -5,49 +5,31 @@ namespace aspNetCoreEscuela.Controllers
 {
     public class AsignaturaController : Controller
     {
+        private EscuelaContext _context { get; set; }
+
+        public AsignaturaController(EscuelaContext context)
+        {
+            this._context = context;
+        }
         public IActionResult Index()
         {
-            var asignaturas = getAsignaturas();
+            var asignaturas = _context.Asignaturas.FirstOrDefault();
 
-            return View(asignaturas[0]);
+            return View(asignaturas);
         }
 
         public IActionResult MultiAsignatura()
         {
-            var asignaturas = getAsignaturas();
+            var asignaturas = _context.Asignaturas;
 
             return View(asignaturas);
         }
 
         public IActionResult MultiAsignaturaPartial()
         {
-            var asignaturas = getAsignaturas();
+            var asignaturas = _context.Asignaturas;
 
             return View(asignaturas);
-        }
-
-        private List<Asignatura> getAsignaturas()
-        {
-            var listaAsignaturas = new List<Asignatura>(){
-                new Asignatura{Nombre="Matemáticas",
-                    UniqueId= Guid.NewGuid().ToString()
-                } ,
-                new Asignatura{Nombre="Educación Física",
-                    UniqueId= Guid.NewGuid().ToString()
-                },
-                new Asignatura{Nombre="Castellano",
-                    UniqueId= Guid.NewGuid().ToString()
-                },
-                new Asignatura{Nombre="Ciencias Naturales",
-                    UniqueId= Guid.NewGuid().ToString()
-                }
-                ,
-                new Asignatura{Nombre="Programación",
-                    UniqueId= Guid.NewGuid().ToString()
-                }
-            };
-
-            return listaAsignaturas;
         }
     }
 }

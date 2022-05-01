@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<EscuelaContext>(
-    options => options.UseInMemoryDatabase(databaseName:"testDB")
+    options => options.UseInMemoryDatabase(databaseName: "testDB")
 );
 
 var app = builder.Build();
@@ -29,5 +29,21 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Escuela}/{action=Index}/{id?}");
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    
+    try
+    {
+        var context = services.GetRequiredService<EscuelaContext>();
+        context.Database.EnsureCreated();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred creating the DB.");
+    }
+}
 
 app.Run();
