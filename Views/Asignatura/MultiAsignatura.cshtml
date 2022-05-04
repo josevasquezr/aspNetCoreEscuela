@@ -4,11 +4,21 @@
     ViewData["Title"] = "Información Asignatura ForEach";
 }
 
-@foreach (var asig in @Model)
-{
-    <div class="text-center">
-        <h1 class="">Asignatura: @asig.Id</h1>
-        <h2 class="">Nombre: @asig.Nombre</h2>
-    </div>    
-}
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var asig in @Model)
+        {
+            <tr>
+                <td>@asig.Nombre</td>
+                <td>@asig.Id</td>
+            </tr>
+        }
+    </tbody>
+</table>
 

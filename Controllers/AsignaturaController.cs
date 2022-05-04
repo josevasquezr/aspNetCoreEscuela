@@ -1,5 +1,6 @@
 using aspNetCoreEscuela.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace aspNetCoreEscuela.Controllers
 {
@@ -11,11 +12,22 @@ namespace aspNetCoreEscuela.Controllers
         {
             this._context = context;
         }
-        public IActionResult Index()
+        // Actions
+        [Route("Asignatura/Index/{asignaturaId?}")]
+        public IActionResult Index(string asignaturaId)
         {
-            var asignaturas = _context.Asignaturas.FirstOrDefault();
+            if(!String.IsNullOrEmpty(asignaturaId)){
+                var asignatura = from asig in _context.Asignaturas
+                            where asig.Id == asignaturaId
+                            select asig;
 
-            return View(asignaturas);
+                return View(asignatura.SingleOrDefault());
+            }else{
+                var asignaturas = _context.Asignaturas;
+
+                return View("MultiAsignatura", asignaturas);
+            }
+            
         }
 
         public IActionResult MultiAsignatura()
