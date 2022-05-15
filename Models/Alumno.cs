@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 namespace aspNetCoreEscuela.Models
 {
-    public class Alumno: ObjetoEscuelaBase
+    public class Alumno
     {
-        public string CursoId { get; set; }
+        public string AlumnoID { get; set; }
+        public string Nombre { get; set; }
+        public string CursoID { get; set; }
         public Curso Curso { get; set; }
         public List<Evaluacion> Evaluaciones { get; set; }
     }

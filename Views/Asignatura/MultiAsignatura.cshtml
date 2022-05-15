@@ -1,4 +1,4 @@
-﻿@Model IEnumerable<Asignatura>
+﻿@model IEnumerable<Asignatura>
 
 @{
     ViewData["Title"] = "Información Asignatura ForEach";
@@ -16,7 +16,7 @@
         {
             <tr>
                 <td>@asig.Nombre</td>
-                <td>@asig.Id</td>
+                <td>@asig.AsignaturaID</td>
             </tr>
         }
     </tbody>

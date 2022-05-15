@@ -10,7 +10,7 @@ namespace aspNetCoreEscuela.Controllers
         public IActionResult Index(){
             Escuela escuela = new Escuela();
 
-            escuela = _context.Escuelas.First();
+            escuela = _context.Escuelas.FirstOrDefault();
 
             return View(escuela);
         }

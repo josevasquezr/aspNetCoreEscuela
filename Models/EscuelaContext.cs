@@ -20,14 +20,14 @@ namespace aspNetCoreEscuela.Models
             base.OnModelCreating(modelBuilder);
 
             var escuela = new Escuela();
-            escuela.AnioDeCreacion = 2005;
-            escuela.Id = Guid.NewGuid().ToString();
+            escuela.EscuelaID = Guid.NewGuid().ToString();
             escuela.Nombre = "Platzi School";
+            escuela.AnioDeCreacion = 2005;
             escuela.Ciudad = "Bogota";
             escuela.Pais = "Colombia";
-            escuela.Dirección = "Avd Siempre viva";
+            escuela.Direccion = "Avd Siempre viva";
             escuela.TipoEscuela = TiposEscuela.Secundaria;
-
+            
             //Cargar Cursos de la escuela
             var cursos = CargarCursos(escuela);
 
@@ -36,6 +36,23 @@ namespace aspNetCoreEscuela.Models
 
             //x cada curso cargar alumnos
             var alumnos = CargarAlumnos(cursos);
+            
+            //modelBuilder.Entity<Escuela>().HasMany(p => p.Cursos).WithOne(b => b.Escuela);
+            //modelBuilder.Entity<Curso>().HasMany(p => p.Alumnos).WithOne(b => b.Curso);
+            //modelBuilder.Entity<Curso>().HasMany(p => p.Asignaturas).WithOne(b => b.Curso);
+            //modelBuilder.Entity<Asignatura>().HasMany(p => p.Evaluaciones).WithOne(b => b.Asignatura);
+            //modelBuilder.Entity<Alumno>().HasMany(p => p.Evaluaciones).WithOne(b => b.Alumno);
+//
+            //modelBuilder.Entity<Escuela>().Navigation(e => e.Cursos).UsePropertyAccessMode(PropertyAccessMode.Property);
+            //modelBuilder.Entity<Curso>().Navigation(c => c.Alumnos).UsePropertyAccessMode(PropertyAccessMode.Property);
+            //modelBuilder.Entity<Curso>().Navigation(c => c.Asignaturas).UsePropertyAccessMode(PropertyAccessMode.Property);
+            //modelBuilder.Entity<Asignatura>().Navigation(a => a.Evaluaciones).UsePropertyAccessMode(PropertyAccessMode.Property);
+            //modelBuilder.Entity<Alumno>().Navigation(a => a.Evaluaciones).UsePropertyAccessMode(PropertyAccessMode.Property);
+
+            //modelBuilder.Entity<Escuela>().ToTable("Escuela").HasData(escuela);
+            //modelBuilder.Entity<Curso>().ToTable("Curso").HasData(cursos.ToArray());
+            //modelBuilder.Entity<Asignatura>().ToTable("Asignatura").HasData(asignaturas.ToArray());
+            //modelBuilder.Entity<Alumno>().ToTable("Alumno").HasData(alumnos.ToArray());
 
             modelBuilder.Entity<Escuela>().HasData(escuela);
             modelBuilder.Entity<Curso>().HasData(cursos.ToArray());
@@ -63,18 +80,14 @@ namespace aspNetCoreEscuela.Models
             foreach (var curso in cursos)
             {
                 var tmpList = new List<Asignatura> {
-                            new Asignatura{
-                                Id = Guid.NewGuid().ToString(),
-                                CursoId = curso.Id,
-                                Nombre="Matemáticas"} ,
-                            new Asignatura{Id = Guid.NewGuid().ToString(), CursoId = curso.Id, Nombre="Educación Física"},
-                            new Asignatura{Id = Guid.NewGuid().ToString(), CursoId = curso.Id, Nombre="Castellano"},
-                            new Asignatura{Id = Guid.NewGuid().ToString(), CursoId = curso.Id, Nombre="Ciencias Naturales"},
-                            new Asignatura{Id = Guid.NewGuid().ToString(), CursoId = curso.Id, Nombre="Programación"}
+                            new Asignatura{AsignaturaID = Guid.NewGuid().ToString(), CursoID = curso.CursoID, Nombre="Matemáticas"} ,
+                            new Asignatura{AsignaturaID = Guid.NewGuid().ToString(), CursoID = curso.CursoID, Nombre="Educación Física"},
+                            new Asignatura{AsignaturaID = Guid.NewGuid().ToString(), CursoID = curso.CursoID, Nombre="Castellano"},
+                            new Asignatura{AsignaturaID = Guid.NewGuid().ToString(), CursoID = curso.CursoID, Nombre="Ciencias Naturales"},
+                            new Asignatura{AsignaturaID = Guid.NewGuid().ToString(), CursoID = curso.CursoID, Nombre="Programación"}
 
                 };
                 listaCompleta.AddRange(tmpList);
-                //curso.Asignaturas = tmpList;
             }
 
             return listaCompleta;
@@ -83,15 +96,11 @@ namespace aspNetCoreEscuela.Models
         private static List<Curso> CargarCursos(Escuela escuela)
         {
             return new List<Curso>(){
-                        new Curso() {
-                            Id = Guid.NewGuid().ToString(),
-                            EscuelaId = escuela.Id,
-                            Nombre = "101",
-                            Jornada = TiposJornada.Mañana },
-                        new Curso() {Id = Guid.NewGuid().ToString(), EscuelaId = escuela.Id, Nombre = "201", Jornada = TiposJornada.Mañana},
-                        new Curso   {Id = Guid.NewGuid().ToString(), EscuelaId = escuela.Id, Nombre = "301", Jornada = TiposJornada.Mañana},
-                        new Curso() {Id = Guid.NewGuid().ToString(), EscuelaId = escuela.Id, Nombre = "401", Jornada = TiposJornada.Tarde },
-                        new Curso() {Id = Guid.NewGuid().ToString(), EscuelaId = escuela.Id, Nombre = "501", Jornada = TiposJornada.Tarde},
+                        new Curso() {CursoID = Guid.NewGuid().ToString(), EscuelaID = escuela.EscuelaID, Nombre = "101", Jornada = TiposJornada.Mañana },
+                        new Curso() {CursoID = Guid.NewGuid().ToString(), EscuelaID = escuela.EscuelaID, Nombre = "201", Jornada = TiposJornada.Mañana},
+                        new Curso() {CursoID = Guid.NewGuid().ToString(), EscuelaID = escuela.EscuelaID, Nombre = "301", Jornada = TiposJornada.Mañana},
+                        new Curso() {CursoID = Guid.NewGuid().ToString(), EscuelaID = escuela.EscuelaID, Nombre = "401", Jornada = TiposJornada.Tarde },
+                        new Curso() {CursoID = Guid.NewGuid().ToString(), EscuelaID = escuela.EscuelaID, Nombre = "501", Jornada = TiposJornada.Tarde},
             };
         }
 
@@ -108,12 +117,12 @@ namespace aspNetCoreEscuela.Models
                                from a1 in apellido1
                                select new Alumno
                                {
-                                   CursoId = curso.Id,
+                                   CursoID = curso.CursoID,
                                    Nombre = $"{n1} {n2} {a1}",
-                                   Id = Guid.NewGuid().ToString()
+                                   AlumnoID = Guid.NewGuid().ToString()
                                };
 
-            return listaAlumnos.OrderBy((al) => al.Id).Take(cantidad).ToList();
+            return listaAlumnos.OrderBy((al) => al.AlumnoID).Take(cantidad).ToList();
         }
     }
 }

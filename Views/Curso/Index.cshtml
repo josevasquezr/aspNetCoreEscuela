@@ -1,0 +1,13 @@
+﻿@model Curso
+
+@{
+    ViewData["Title"] = "Información Curso";
+}
+
+<div class="text-center">
+    <h1 class="display-1">@ViewData["Title"]</h1>
+    <h2 class="display-2">@ViewBag.Mensaje</h2>
+    <h3 class="display-3">Id: @Model.CursoID</h3>
+    <h3 class="display-3">Nombre: @Model.Nombre</h3>
+    <h3 class="display-3">Jornada: @Model.Jornada</h3>
+</div>

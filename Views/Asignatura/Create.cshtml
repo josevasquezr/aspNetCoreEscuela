@@ -1,0 +1,18 @@
+﻿@model Asignatura
+
+@{
+  ViewData["Title"] = "Crear Asignatura";
+}
+
+<div class="text-center">
+  <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+
+<form method="POST">
+  <div>
+    <label asp-for="Nombre"></label>
+    <input asp-for="Nombre">
+  </div>
+  <input type="submit" />
+</form>

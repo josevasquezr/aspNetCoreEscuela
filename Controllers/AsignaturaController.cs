@@ -18,7 +18,7 @@ namespace aspNetCoreEscuela.Controllers
         {
             if(!String.IsNullOrEmpty(asignaturaId)){
                 var asignatura = from asig in _context.Asignaturas
-                            where asig.Id == asignaturaId
+                            where asig.AsignaturaID == asignaturaId
                             select asig;
 
                 return View(asignatura.SingleOrDefault());
@@ -42,6 +42,25 @@ namespace aspNetCoreEscuela.Controllers
             var asignaturas = _context.Asignaturas;
 
             return View(asignaturas);
+        }
+        
+        public IActionResult Create(){
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Asignatura asignatura)
+        {
+            asignatura.AsignaturaID = Guid.NewGuid().ToString();
+            var curso = _context.Cursos.FirstOrDefault();
+            asignatura.CursoID = curso.CursoID;
+            asignatura.Curso = curso;
+            
+            _context.Asignaturas.Add(asignatura);
+            _context.SaveChanges();
+
+            return View("Index", asignatura);
         }
     }
 }

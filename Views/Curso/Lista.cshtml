@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Curso>
+
+@{
+    ViewData["Title"] = "Lista de Cursos";
+}
+
+<div class="text-center">
+    <h1 class="display-1">@ViewData["Title"]</h1>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Jornada</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var curso in @Model)
+        {
+            <tr>
+                <td>@curso.CursoID</td>
+                <td>@curso.Nombre</td>
+                <td>@curso.Jornada</td>
+            </tr>
+        }
+    </tbody>
+</table>
