@@ -37,27 +37,27 @@ namespace aspNetCoreEscuela.Models
             //x cada curso cargar alumnos
             var alumnos = CargarAlumnos(cursos);
             
-            //modelBuilder.Entity<Escuela>().HasMany(p => p.Cursos).WithOne(b => b.Escuela);
-            //modelBuilder.Entity<Curso>().HasMany(p => p.Alumnos).WithOne(b => b.Curso);
-            //modelBuilder.Entity<Curso>().HasMany(p => p.Asignaturas).WithOne(b => b.Curso);
-            //modelBuilder.Entity<Asignatura>().HasMany(p => p.Evaluaciones).WithOne(b => b.Asignatura);
-            //modelBuilder.Entity<Alumno>().HasMany(p => p.Evaluaciones).WithOne(b => b.Alumno);
-//
-            //modelBuilder.Entity<Escuela>().Navigation(e => e.Cursos).UsePropertyAccessMode(PropertyAccessMode.Property);
-            //modelBuilder.Entity<Curso>().Navigation(c => c.Alumnos).UsePropertyAccessMode(PropertyAccessMode.Property);
-            //modelBuilder.Entity<Curso>().Navigation(c => c.Asignaturas).UsePropertyAccessMode(PropertyAccessMode.Property);
-            //modelBuilder.Entity<Asignatura>().Navigation(a => a.Evaluaciones).UsePropertyAccessMode(PropertyAccessMode.Property);
-            //modelBuilder.Entity<Alumno>().Navigation(a => a.Evaluaciones).UsePropertyAccessMode(PropertyAccessMode.Property);
+            modelBuilder.Entity<Escuela>().HasMany(p => p.Cursos).WithOne(b => b.Escuela).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Curso>().HasMany(p => p.Alumnos).WithOne(b => b.Curso).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Curso>().HasMany(p => p.Asignaturas).WithOne(b => b.Curso).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Asignatura>().HasMany(p => p.Evaluaciones).WithOne(b => b.Asignatura).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Alumno>().HasMany(p => p.Evaluaciones).WithOne(b => b.Alumno).OnDelete(DeleteBehavior.NoAction);
 
-            //modelBuilder.Entity<Escuela>().ToTable("Escuela").HasData(escuela);
-            //modelBuilder.Entity<Curso>().ToTable("Curso").HasData(cursos.ToArray());
-            //modelBuilder.Entity<Asignatura>().ToTable("Asignatura").HasData(asignaturas.ToArray());
-            //modelBuilder.Entity<Alumno>().ToTable("Alumno").HasData(alumnos.ToArray());
+            modelBuilder.Entity<Escuela>().Navigation(e => e.Cursos).UsePropertyAccessMode(PropertyAccessMode.Property);
+            modelBuilder.Entity<Curso>().Navigation(c => c.Alumnos).UsePropertyAccessMode(PropertyAccessMode.Property);
+            modelBuilder.Entity<Curso>().Navigation(c => c.Asignaturas).UsePropertyAccessMode(PropertyAccessMode.Property);
+            modelBuilder.Entity<Asignatura>().Navigation(a => a.Evaluaciones).UsePropertyAccessMode(PropertyAccessMode.Property);
+            modelBuilder.Entity<Alumno>().Navigation(a => a.Evaluaciones).UsePropertyAccessMode(PropertyAccessMode.Property);
 
-            modelBuilder.Entity<Escuela>().HasData(escuela);
-            modelBuilder.Entity<Curso>().HasData(cursos.ToArray());
-            modelBuilder.Entity<Asignatura>().HasData(asignaturas.ToArray());
-            modelBuilder.Entity<Alumno>().HasData(alumnos.ToArray());
+            modelBuilder.Entity<Escuela>().ToTable("Escuela").HasData(escuela);
+            modelBuilder.Entity<Curso>().ToTable("Curso").HasData(cursos.ToArray());
+            modelBuilder.Entity<Asignatura>().ToTable("Asignatura").HasData(asignaturas.ToArray());
+            modelBuilder.Entity<Alumno>().ToTable("Alumno").HasData(alumnos.ToArray());
+
+            // modelBuilder.Entity<Escuela>().HasData(escuela);
+            // modelBuilder.Entity<Curso>().HasData(cursos.ToArray());
+            // modelBuilder.Entity<Asignatura>().HasData(asignaturas.ToArray());
+            // modelBuilder.Entity<Alumno>().HasData(alumnos.ToArray());
         }
 
         private List<Alumno> CargarAlumnos(List<Curso> cursos)

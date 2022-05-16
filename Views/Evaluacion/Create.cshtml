@@ -1,4 +1,4 @@
-@model aspNetCoreEscuela.Models.Curso
+@model aspNetCoreEscuela.Models.Evaluacion
 
 @{
     ViewData["Title"] = "Create";
@@ -6,16 +6,16 @@
 
 <h1>Create</h1>
 
-<h4>Curso</h4>
+<h4>Evaluacion</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CursoID" class="control-label"></label>
-                <input asp-for="CursoID" class="form-control" />
-                <span asp-validation-for="CursoID" class="text-danger"></span>
+                <label asp-for="EvaluacionID" class="control-label"></label>
+                <input asp-for="EvaluacionID" class="form-control" />
+                <span asp-validation-for="EvaluacionID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
@@ -23,13 +23,17 @@
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Jornada" class="control-label"></label>
-                <select asp-for="Jornada" class="form-control"></select>
-                <span asp-validation-for="Jornada" class="text-danger"></span>
+                <label asp-for="Nota" class="control-label"></label>
+                <input asp-for="Nota" class="form-control" />
+                <span asp-validation-for="Nota" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EscuelaID" class="control-label"></label>
-                <select asp-for="EscuelaID" class ="form-control" asp-items="ViewBag.EscuelaID"></select>
+                <label asp-for="AlumnoID" class="control-label"></label>
+                <select asp-for="AlumnoID" class ="form-control" asp-items="ViewBag.AlumnoID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="AsignaturaID" class="control-label"></label>
+                <select asp-for="AsignaturaID" class ="form-control" asp-items="ViewBag.AsignaturaID"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
