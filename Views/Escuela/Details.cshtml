@@ -1,10 +1,10 @@
 @model aspNetCoreEscuela.Models.Escuela
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle";
 }
 
-<h1>Details</h1>
+<h1>@ViewData["Title"]</h1>
 
 <div>
     <h4>Escuela</h4>
@@ -17,7 +17,7 @@
             @Html.DisplayFor(model => model.Nombre)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Pais)
+            País
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Pais)
@@ -29,19 +29,19 @@
             @Html.DisplayFor(model => model.Ciudad)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Direccion)
+            Dirección
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Direccion)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnioDeCreacion)
+            Año de creación
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.AnioDeCreacion)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoEscuela)
+            Tipo de escuela
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.TipoEscuela)
@@ -49,6 +49,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.EscuelaID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.EscuelaID">Editar</a> |
+    <a asp-action="Index">Volver</a>
 </div>

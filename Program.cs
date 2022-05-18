@@ -5,9 +5,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+#region Conexion Memory Database
 // builder.Services.AddDbContext<EscuelaContext>(
 //     options => options.UseInMemoryDatabase(databaseName: "testDB")
 // );
+#endregion
 
 string conString = ConfigurationExtensions.GetConnectionString(builder.Configuration, "DefaultConnectionString");
 

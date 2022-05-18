@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using aspNetCoreEscuela.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace aspNetCoreEscuela.Controllers
 {
@@ -69,6 +70,8 @@ namespace aspNetCoreEscuela.Controllers
         // GET: Escuela/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
+            ViewBag.errorsValid = new List<string>();
+
             if (id == null || _context.Escuelas == null)
             {
                 return NotFound();
@@ -113,6 +116,16 @@ namespace aspNetCoreEscuela.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
+            }else{
+                ViewBag.errorsValid = new List<string>();
+
+                foreach (var valueState in ModelState)
+                {
+                    if (valueState.Value.ValidationState.ToString() == "Invalid")
+                    {
+                        ViewBag.errorsValid.Add($"Verificar valor del campo: {valueState.Key}");
+                    }
+                }
             }
             return View(escuela);
         }

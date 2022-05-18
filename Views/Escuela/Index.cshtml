@@ -1,13 +1,13 @@
 @model IEnumerable<aspNetCoreEscuela.Models.Escuela>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista de Escuelas";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear Escuela</a>
 </p>
 <table class="table">
     <thead>
@@ -16,19 +16,19 @@
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pais)
+                País
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Ciudad)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Direccion)
+                Dirección
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AnioDeCreacion)
+                Año de creación
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TipoEscuela)
+                Tipo de escuela
             </th>
             <th></th>
         </tr>
@@ -55,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.TipoEscuela)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.EscuelaID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EscuelaID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EscuelaID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.EscuelaID">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.EscuelaID">Detalle</a> |
+                <a asp-action="Delete" asp-route-id="@item.EscuelaID">Borrar</a>
             </td>
         </tr>
 }
