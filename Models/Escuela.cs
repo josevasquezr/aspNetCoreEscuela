@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace aspNetCoreEscuela.Models
 {
@@ -13,7 +14,7 @@ namespace aspNetCoreEscuela.Models
         public string Direccion { get; set; }
         public int AnioDeCreacion { get; set; }
         public TiposEscuela TipoEscuela { get; set; }
-        public List<Curso> Cursos { get; set; }
+        public virtual List<Curso> Cursos { get; set; }
 
     }
 }
