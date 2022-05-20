@@ -1,13 +1,13 @@
 @model IEnumerable<aspNetCoreEscuela.Models.Alumno>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista de alumnos";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear alumno</a>
 </p>
 <table class="table">
     <thead>
@@ -28,12 +28,12 @@
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Curso.CursoID)
+                @Html.DisplayFor(modelItem => item.Curso.Nombre)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.AlumnoID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AlumnoID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AlumnoID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.AlumnoID">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.AlumnoID">Detalle</a> |
+                <a asp-action="Delete" asp-route-id="@item.AlumnoID">Borrar</a>
             </td>
         </tr>
 }
