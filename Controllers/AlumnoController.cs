@@ -26,7 +26,7 @@ namespace aspNetCoreEscuela.Controllers
         }
 
         // GET: Alumno/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(Guid id)
         {
             if (id == null || _context.Alumnos == null)
             {
@@ -90,7 +90,7 @@ namespace aspNetCoreEscuela.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("AlumnoID,Nombre,CursoID")] Alumno alumno)
+        public async Task<IActionResult> Edit(Guid id, [Bind("AlumnoID,Nombre,CursoID")] Alumno alumno)
         {
             if (id != alumno.AlumnoID)
             {
@@ -122,7 +122,7 @@ namespace aspNetCoreEscuela.Controllers
         }
 
         // GET: Alumno/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             if (id == null || _context.Alumnos == null)
             {
@@ -143,7 +143,7 @@ namespace aspNetCoreEscuela.Controllers
         // POST: Alumno/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             if (_context.Alumnos == null)
             {
@@ -159,7 +159,7 @@ namespace aspNetCoreEscuela.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AlumnoExists(string id)
+        private bool AlumnoExists(Guid id)
         {
           return (_context.Alumnos?.Any(e => e.AlumnoID == id)).GetValueOrDefault();
         }

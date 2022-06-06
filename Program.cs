@@ -12,7 +12,7 @@ builder.Services.AddControllersWithViews();
 // );
 #endregion
 
-string conString = ConfigurationExtensions.GetConnectionString(builder.Configuration, "DefaultConnectionString");
+string conString = ConfigurationExtensions.GetConnectionString(builder.Configuration, "AzureConnectionString");
 
 builder.Services.AddDbContext<EscuelaContext>(
     options => options.UseSqlServer(conString)
@@ -51,7 +51,7 @@ using (var scope = app.Services.CreateScope())
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred creating the DB.");
+        logger.LogError(ex, "Ha ocurrido un error al crear Base de Datos.");
     }
 }
 

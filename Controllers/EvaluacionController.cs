@@ -26,7 +26,7 @@ namespace aspNetCoreEscuela.Controllers
         }
 
         // GET: Evaluacion/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(Guid id)
         {
             if (id == null || _context.Evaluaciones == null)
             {
@@ -72,7 +72,7 @@ namespace aspNetCoreEscuela.Controllers
         }
 
         // GET: Evaluacion/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             if (id == null || _context.Evaluaciones == null)
             {
@@ -94,7 +94,7 @@ namespace aspNetCoreEscuela.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("EvaluacionID,Nombre,Nota,AlumnoID,AsignaturaID")] Evaluacion evaluacion)
+        public async Task<IActionResult> Edit(Guid id, [Bind("EvaluacionID,Nombre,Nota,AlumnoID,AsignaturaID")] Evaluacion evaluacion)
         {
             if (id != evaluacion.EvaluacionID)
             {
@@ -127,7 +127,7 @@ namespace aspNetCoreEscuela.Controllers
         }
 
         // GET: Evaluacion/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             if (id == null || _context.Evaluaciones == null)
             {
@@ -149,7 +149,7 @@ namespace aspNetCoreEscuela.Controllers
         // POST: Evaluacion/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             if (_context.Evaluaciones == null)
             {
@@ -165,7 +165,7 @@ namespace aspNetCoreEscuela.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EvaluacionExists(string id)
+        private bool EvaluacionExists(Guid id)
         {
           return (_context.Evaluaciones?.Any(e => e.EvaluacionID == id)).GetValueOrDefault();
         }

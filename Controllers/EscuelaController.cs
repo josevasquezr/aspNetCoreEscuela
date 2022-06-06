@@ -28,7 +28,7 @@ namespace aspNetCoreEscuela.Controllers
         }
 
         // GET: Escuela/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(Guid id)
         {
             if (id == null || _context.Escuelas == null)
             {
@@ -68,7 +68,7 @@ namespace aspNetCoreEscuela.Controllers
         }
 
         // GET: Escuela/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             ViewBag.errorsValid = new List<string>();
 
@@ -90,7 +90,7 @@ namespace aspNetCoreEscuela.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("EscuelaID,Nombre,Pais,Ciudad,Direccion,AnioDeCreacion,TipoEscuela")] Escuela escuela)
+        public async Task<IActionResult> Edit(Guid id, [Bind("EscuelaID,Nombre,Pais,Ciudad,Direccion,AnioDeCreacion,TipoEscuela")] Escuela escuela)
         {
             if (id != escuela.EscuelaID)
             {
@@ -131,7 +131,7 @@ namespace aspNetCoreEscuela.Controllers
         }
 
         // GET: Escuela/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             if (id == null || _context.Escuelas == null)
             {
@@ -151,7 +151,7 @@ namespace aspNetCoreEscuela.Controllers
         // POST: Escuela/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             if (_context.Escuelas == null)
             {
@@ -167,7 +167,7 @@ namespace aspNetCoreEscuela.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EscuelaExists(string id)
+        private bool EscuelaExists(Guid id)
         {
           return (_context.Escuelas?.Any(e => e.EscuelaID == id)).GetValueOrDefault();
         }

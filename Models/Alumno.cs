@@ -5,10 +5,10 @@ namespace aspNetCoreEscuela.Models
 {
     public class Alumno
     {
-        public string AlumnoID { get; set; }
+        public Guid AlumnoID { get; set; }
+        public Guid CursoID { get; set; }
         public string Nombre { get; set; }
-        public string CursoID { get; set; }
-        public Curso Curso { get; set; }
-        public List<Evaluacion> Evaluaciones { get; set; }
+        public virtual Curso Curso { get; set; }
+        public virtual ICollection<Evaluacion> Evaluaciones { get; set; }
     }
 }
