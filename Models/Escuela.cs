@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace aspNetCoreEscuela.Models
 {
@@ -14,6 +15,8 @@ namespace aspNetCoreEscuela.Models
         public string Direccion { get; set; }
         public int AnioDeCreacion { get; set; }
         public TiposEscuela TipoEscuela { get; set; }
+
+        [ValidateNever]
         public virtual ICollection<Curso> Cursos { get; set; }
 
     }

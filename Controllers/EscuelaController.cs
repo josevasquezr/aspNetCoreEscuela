@@ -56,8 +56,10 @@ namespace aspNetCoreEscuela.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EscuelaID,Nombre,Pais,Ciudad,Direccion,AnioDeCreacion,TipoEscuela")] Escuela escuela)
+        public async Task<IActionResult> Create([Bind("Nombre, Pais, Ciudad, Direccion, AnioDeCreacion, TipoEscuela")] Escuela escuela)
         {
+            escuela.EscuelaID = Guid.NewGuid();
+
             if (ModelState.IsValid)
             {
                 _context.Add(escuela);
