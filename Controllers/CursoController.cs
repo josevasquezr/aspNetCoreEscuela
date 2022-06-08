@@ -36,6 +36,7 @@ namespace aspNetCoreEscuela.Controllers
             var curso = await _context.Cursos
                 .Include(c => c.Escuela)
                 .FirstOrDefaultAsync(m => m.CursoID == id);
+
             if (curso == null)
             {
                 return NotFound();
@@ -56,8 +57,10 @@ namespace aspNetCoreEscuela.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CursoID,Nombre,Jornada,EscuelaID")] Curso curso)
+        public async Task<IActionResult> Create([Bind("Nombre, Jornada, EscuelaID")] Curso curso)
         {
+            curso.CursoID = Guid.NewGuid();
+
             if (ModelState.IsValid)
             {
                 _context.Add(curso);
@@ -77,11 +80,14 @@ namespace aspNetCoreEscuela.Controllers
             }
 
             var curso = await _context.Cursos.FindAsync(id);
+
             if (curso == null)
             {
                 return NotFound();
             }
+
             ViewData["EscuelaID"] = new SelectList(_context.Escuelas, "EscuelaID", "Nombre", curso.EscuelaID);
+
             return View(curso);
         }
 
@@ -90,7 +96,7 @@ namespace aspNetCoreEscuela.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("CursoID,Nombre,Jornada,EscuelaID")] Curso curso)
+        public async Task<IActionResult> Edit(Guid id, [Bind("CursoID, Nombre, Jornada, EscuelaID")] Curso curso)
         {
             if (id != curso.CursoID)
             {
@@ -118,6 +124,7 @@ namespace aspNetCoreEscuela.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EscuelaID"] = new SelectList(_context.Escuelas, "EscuelaID", "Nombre", curso.EscuelaID);
+
             return View(curso);
         }
 
@@ -132,6 +139,7 @@ namespace aspNetCoreEscuela.Controllers
             var curso = await _context.Cursos
                 .Include(c => c.Escuela)
                 .FirstOrDefaultAsync(m => m.CursoID == id);
+
             if (curso == null)
             {
                 return NotFound();
@@ -143,19 +151,22 @@ namespace aspNetCoreEscuela.Controllers
         // POST: Curso/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             if (_context.Cursos == null)
             {
                 return Problem("Entity set 'EscuelaContext.Cursos'  is null.");
             }
+
             var curso = await _context.Cursos.FindAsync(id);
+
             if (curso != null)
             {
                 _context.Cursos.Remove(curso);
             }
             
             await _context.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 
