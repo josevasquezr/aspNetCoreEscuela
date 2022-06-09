@@ -1,10 +1,10 @@
 @model aspNetCoreEscuela.Models.Evaluacion
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear Evaluación";
 }
 
-<h1>Create</h1>
+<h1>@ViewData["Title"]</h1>
 
 <h4>Evaluacion</h4>
 <hr />
@@ -13,9 +13,7 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="EvaluacionID" class="control-label"></label>
-                <input asp-for="EvaluacionID" class="form-control" />
-                <span asp-validation-for="EvaluacionID" class="text-danger"></span>
+                <input type="hidden" asp-for="EvaluacionID" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
@@ -28,11 +26,11 @@
                 <span asp-validation-for="Nota" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AlumnoID" class="control-label"></label>
+                <label asp-for="AlumnoID" class="control-label">Alumno</label>
                 <select asp-for="AlumnoID" class ="form-control" asp-items="ViewBag.AlumnoID"></select>
             </div>
             <div class="form-group">
-                <label asp-for="AsignaturaID" class="control-label"></label>
+                <label asp-for="AsignaturaID" class="control-label">Asignatura</label>
                 <select asp-for="AsignaturaID" class ="form-control" asp-items="ViewBag.AsignaturaID"></select>
             </div>
             <div class="form-group">
@@ -43,7 +41,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver</a>
 </div>
 
 @section Scripts {

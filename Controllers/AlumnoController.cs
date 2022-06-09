@@ -36,6 +36,7 @@ namespace aspNetCoreEscuela.Controllers
             var alumno = await _context.Alumnos
                 .Include(a => a.Curso)
                 .FirstOrDefaultAsync(m => m.AlumnoID == id);
+
             if (alumno == null)
             {
                 return NotFound();
@@ -56,20 +57,24 @@ namespace aspNetCoreEscuela.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AlumnoID,Nombre,CursoID")] Alumno alumno)
+        public async Task<IActionResult> Create([Bind("Nombre, CursoID")] Alumno alumno)
         {
+            alumno.AlumnoID = Guid.NewGuid();
+
             if (ModelState.IsValid)
             {
                 _context.Add(alumno);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["CursoID"] = new SelectList(_context.Cursos, "CursoID", "Nombre", alumno.CursoID);
+
             return View(alumno);
         }
 
         // GET: Alumno/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             if (id == null || _context.Alumnos == null)
             {
@@ -77,11 +82,13 @@ namespace aspNetCoreEscuela.Controllers
             }
 
             var alumno = await _context.Alumnos.FindAsync(id);
+
             if (alumno == null)
             {
                 return NotFound();
             }
             ViewData["CursoID"] = new SelectList(_context.Cursos, "CursoID", "Nombre", alumno.CursoID);
+
             return View(alumno);
         }
 
@@ -90,7 +97,7 @@ namespace aspNetCoreEscuela.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("AlumnoID,Nombre,CursoID")] Alumno alumno)
+        public async Task<IActionResult> Edit(Guid id, [Bind("AlumnoID, Nombre, CursoID")] Alumno alumno)
         {
             if (id != alumno.AlumnoID)
             {
@@ -117,7 +124,9 @@ namespace aspNetCoreEscuela.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["CursoID"] = new SelectList(_context.Cursos, "CursoID", "Nombre", alumno.CursoID);
+
             return View(alumno);
         }
 
@@ -132,6 +141,7 @@ namespace aspNetCoreEscuela.Controllers
             var alumno = await _context.Alumnos
                 .Include(a => a.Curso)
                 .FirstOrDefaultAsync(m => m.AlumnoID == id);
+
             if (alumno == null)
             {
                 return NotFound();
@@ -150,6 +160,7 @@ namespace aspNetCoreEscuela.Controllers
                 return Problem("Entity set 'EscuelaContext.Alumnos'  is null.");
             }
             var alumno = await _context.Alumnos.FindAsync(id);
+            
             if (alumno != null)
             {
                 _context.Alumnos.Remove(alumno);

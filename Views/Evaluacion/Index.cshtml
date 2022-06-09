@@ -1,13 +1,13 @@
 @model IEnumerable<aspNetCoreEscuela.Models.Evaluacion>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista de evaluaciones";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear evaluación</a>
 </p>
 <table class="table">
     <thead>
@@ -37,15 +37,15 @@
                 @Html.DisplayFor(modelItem => item.Nota)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Alumno.AlumnoID)
+                @Html.DisplayFor(modelItem => item.Alumno.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Asignatura.AsignaturaID)
+                @Html.DisplayFor(modelItem => item.Asignatura.Nombre)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.EvaluacionID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EvaluacionID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EvaluacionID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.EvaluacionID">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.EvaluacionID">Detalle</a> |
+                <a asp-action="Delete" asp-route-id="@item.EvaluacionID">Borrar</a>
             </td>
         </tr>
 }

@@ -36,6 +36,7 @@ namespace aspNetCoreEscuela.Controllers
             var asignatura = await _context.Asignaturas
                 .Include(a => a.Curso)
                 .FirstOrDefaultAsync(m => m.AsignaturaID == id);
+
             if (asignatura == null)
             {
                 return NotFound();
@@ -47,7 +48,7 @@ namespace aspNetCoreEscuela.Controllers
         // GET: Asignatura/Create
         public IActionResult Create()
         {
-            ViewData["CursoID"] = new SelectList(_context.Cursos, "CursoID", "CursoID");
+            ViewData["CursoID"] = new SelectList(_context.Cursos, "CursoID", "Nombre");
             return View();
         }
 
@@ -56,20 +57,24 @@ namespace aspNetCoreEscuela.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AsignaturaID,Nombre,CursoID")] Asignatura asignatura)
+        public async Task<IActionResult> Create([Bind("Nombre, CursoID")] Asignatura asignatura)
         {
+            asignatura.AsignaturaID = Guid.NewGuid();
+
             if (ModelState.IsValid)
             {
                 _context.Add(asignatura);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CursoID"] = new SelectList(_context.Cursos, "CursoID", "CursoID", asignatura.CursoID);
+
+            ViewData["CursoID"] = new SelectList(_context.Cursos, "CursoID", "Nombre", asignatura.CursoID);
+
             return View(asignatura);
         }
 
         // GET: Asignatura/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             if (id == null || _context.Asignaturas == null)
             {
@@ -77,11 +82,14 @@ namespace aspNetCoreEscuela.Controllers
             }
 
             var asignatura = await _context.Asignaturas.FindAsync(id);
+
             if (asignatura == null)
             {
                 return NotFound();
             }
-            ViewData["CursoID"] = new SelectList(_context.Cursos, "CursoID", "CursoID", asignatura.CursoID);
+
+            ViewData["CursoID"] = new SelectList(_context.Cursos, "CursoID", "Nombre", asignatura.CursoID);
+
             return View(asignatura);
         }
 
@@ -90,7 +98,7 @@ namespace aspNetCoreEscuela.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("AsignaturaID,Nombre,CursoID")] Asignatura asignatura)
+        public async Task<IActionResult> Edit(Guid id, [Bind("AsignaturaID, Nombre, CursoID")] Asignatura asignatura)
         {
             if (id != asignatura.AsignaturaID)
             {
@@ -117,7 +125,9 @@ namespace aspNetCoreEscuela.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CursoID"] = new SelectList(_context.Cursos, "CursoID", "CursoID", asignatura.CursoID);
+
+            ViewData["CursoID"] = new SelectList(_context.Cursos, "CursoID", "Nombre", asignatura.CursoID);
+
             return View(asignatura);
         }
 
@@ -132,6 +142,7 @@ namespace aspNetCoreEscuela.Controllers
             var asignatura = await _context.Asignaturas
                 .Include(a => a.Curso)
                 .FirstOrDefaultAsync(m => m.AsignaturaID == id);
+
             if (asignatura == null)
             {
                 return NotFound();
@@ -143,19 +154,22 @@ namespace aspNetCoreEscuela.Controllers
         // POST: Asignatura/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             if (_context.Asignaturas == null)
             {
                 return Problem("Entity set 'EscuelaContext.Asignaturas'  is null.");
             }
+
             var asignatura = await _context.Asignaturas.FindAsync(id);
+
             if (asignatura != null)
             {
                 _context.Asignaturas.Remove(asignatura);
             }
             
             await _context.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

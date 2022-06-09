@@ -1,10 +1,10 @@
 @model aspNetCoreEscuela.Models.Asignatura
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle";
 }
 
-<h1>Details</h1>
+<h1>@ViewData["Title"]</h1>
 
 <div>
     <h4>Asignatura</h4>
@@ -20,11 +20,11 @@
             @Html.DisplayNameFor(model => model.Curso)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Curso.CursoID)
+            @Html.DisplayFor(model => model.Curso.Nombre)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.AsignaturaID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.AsignaturaID">Editar</a> |
+    <a asp-action="Index">Volver</a>
 </div>

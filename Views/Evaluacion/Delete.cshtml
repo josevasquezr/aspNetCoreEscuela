@@ -1,14 +1,14 @@
 @model aspNetCoreEscuela.Models.Evaluacion
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Borrar";
 }
 
-<h1>Delete</h1>
+<h1>@ViewData["Title"]</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Esta seguro que desea borrar esta evaluación?</h3>
 <div>
-    <h4>Evaluacion</h4>
+    <h4>Evaluación</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -27,19 +27,19 @@
             @Html.DisplayNameFor(model => model.Alumno)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Alumno.AlumnoID)
+            @Html.DisplayFor(model => model.Alumno.Nombre)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Asignatura)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Asignatura.AsignaturaID)
+            @Html.DisplayFor(model => model.Asignatura.Nombre)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="EvaluacionID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Borrar" class="btn btn-danger" /> |
+        <a asp-action="Index">Volver</a>
     </form>
 </div>

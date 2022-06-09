@@ -37,6 +37,7 @@ namespace aspNetCoreEscuela.Controllers
                 .Include(e => e.Alumno)
                 .Include(e => e.Asignatura)
                 .FirstOrDefaultAsync(m => m.EvaluacionID == id);
+
             if (evaluacion == null)
             {
                 return NotFound();
@@ -48,8 +49,8 @@ namespace aspNetCoreEscuela.Controllers
         // GET: Evaluacion/Create
         public IActionResult Create()
         {
-            ViewData["AlumnoID"] = new SelectList(_context.Alumnos, "AlumnoID", "AlumnoID");
-            ViewData["AsignaturaID"] = new SelectList(_context.Asignaturas, "AsignaturaID", "AsignaturaID");
+            ViewData["AlumnoID"] = new SelectList(_context.Alumnos, "AlumnoID", "Nombre");
+            ViewData["AsignaturaID"] = new SelectList(_context.Asignaturas, "AsignaturaID", "Nombre");
             return View();
         }
 
@@ -58,16 +59,20 @@ namespace aspNetCoreEscuela.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EvaluacionID,Nombre,Nota,AlumnoID,AsignaturaID")] Evaluacion evaluacion)
+        public async Task<IActionResult> Create([Bind("Nombre, Nota, AlumnoID, AsignaturaID")] Evaluacion evaluacion)
         {
+            evaluacion.EvaluacionID = Guid.NewGuid();
+
             if (ModelState.IsValid)
             {
                 _context.Add(evaluacion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AlumnoID"] = new SelectList(_context.Alumnos, "AlumnoID", "AlumnoID", evaluacion.AlumnoID);
-            ViewData["AsignaturaID"] = new SelectList(_context.Asignaturas, "AsignaturaID", "AsignaturaID", evaluacion.AsignaturaID);
+
+            ViewData["AlumnoID"] = new SelectList(_context.Alumnos, "AlumnoID", "Nombre", evaluacion.AlumnoID);
+            ViewData["AsignaturaID"] = new SelectList(_context.Asignaturas, "AsignaturaID", "Nombre", evaluacion.AsignaturaID);
+
             return View(evaluacion);
         }
 
@@ -80,12 +85,15 @@ namespace aspNetCoreEscuela.Controllers
             }
 
             var evaluacion = await _context.Evaluaciones.FindAsync(id);
+
             if (evaluacion == null)
             {
                 return NotFound();
             }
-            ViewData["AlumnoID"] = new SelectList(_context.Alumnos, "AlumnoID", "AlumnoID", evaluacion.AlumnoID);
-            ViewData["AsignaturaID"] = new SelectList(_context.Asignaturas, "AsignaturaID", "AsignaturaID", evaluacion.AsignaturaID);
+
+            ViewData["AlumnoID"] = new SelectList(_context.Alumnos, "AlumnoID", "Nombre", evaluacion.AlumnoID);
+            ViewData["AsignaturaID"] = new SelectList(_context.Asignaturas, "AsignaturaID", "Nombre", evaluacion.AsignaturaID);
+
             return View(evaluacion);
         }
 
@@ -94,7 +102,7 @@ namespace aspNetCoreEscuela.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("EvaluacionID,Nombre,Nota,AlumnoID,AsignaturaID")] Evaluacion evaluacion)
+        public async Task<IActionResult> Edit(Guid id, [Bind("EvaluacionID, Nombre, Nota, AlumnoID, AsignaturaID")] Evaluacion evaluacion)
         {
             if (id != evaluacion.EvaluacionID)
             {
@@ -119,10 +127,13 @@ namespace aspNetCoreEscuela.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AlumnoID"] = new SelectList(_context.Alumnos, "AlumnoID", "AlumnoID", evaluacion.AlumnoID);
-            ViewData["AsignaturaID"] = new SelectList(_context.Asignaturas, "AsignaturaID", "AsignaturaID", evaluacion.AsignaturaID);
+
+            ViewData["AlumnoID"] = new SelectList(_context.Alumnos, "AlumnoID", "Nombre", evaluacion.AlumnoID);
+            ViewData["AsignaturaID"] = new SelectList(_context.Asignaturas, "AsignaturaID", "Nombre", evaluacion.AsignaturaID);
+
             return View(evaluacion);
         }
 
@@ -138,6 +149,7 @@ namespace aspNetCoreEscuela.Controllers
                 .Include(e => e.Alumno)
                 .Include(e => e.Asignatura)
                 .FirstOrDefaultAsync(m => m.EvaluacionID == id);
+
             if (evaluacion == null)
             {
                 return NotFound();
@@ -155,7 +167,9 @@ namespace aspNetCoreEscuela.Controllers
             {
                 return Problem("Entity set 'EscuelaContext.Evaluaciones'  is null.");
             }
+
             var evaluacion = await _context.Evaluaciones.FindAsync(id);
+            
             if (evaluacion != null)
             {
                 _context.Evaluaciones.Remove(evaluacion);
